@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pudhalvans</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Grand Opening Screen -->
+    <div id="grandOpening" class="grand-opening-overlay">
+        <div class="grand-opening-content">
+            <div class="opening-stars">
+                <div class="star">⭐</div>
+                <div class="star">✨</div>
+                <div class="star">🌟</div>
+                <div class="star">💫</div>
+                <div class="star">⭐</div>
+                <div class="star">✨</div>
+            </div>
+            
+            <div class="opening-title">
+                <h1 class="grand-title">🎊 GRAND OPENING 🎊</h1>
+                <h2 class="grand-subtitle">Pudhalvans Website</h2>
+                <p class="grand-message">Opened by the Great Mom of Pudhalvans - "Maheswari Vedhachalam"</p>
+            </div>
+            
+            <div class="verification-box" id="verificationBox">
+                <h3>🔐 Verification Required</h3>
+                <p>Please enter the month of birth to proceed:</p>
+                <div class="month-input-container">
+                    <select id="monthInput" class="month-select">
+                        <option value="">Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <button onclick="verifyMonth()" class="verify-btn">Verify ✓</button>
+                </div>
+                <div id="verificationError" class="verification-error"></div>
+            </div>
+            
+            <div class="ribbon-container" id="ribbonContainer" style="display: none;">
+                <div class="ribbon-left" id="ribbonLeft"></div>
+                <div class="ribbon-right" id="ribbonRight"></div>
+                <div class="scissors" id="scissors">✂️</div>
+            </div>
+            
+            <div class="confetti-container" id="confettiContainer"></div>
+        </div>
+    </div>
+
+    <!-- Mascot Character -->
+    <div class="mascot-container"></div>
+        <img src="mascot.png" alt="Pudhalvans Mascot" class="mascot-character active" id="mascot1">
+        <img src="mascot2.png" alt="Pudhalvans Mascot" class="mascot-character" id="mascot2">
+        <div class="mascot-speech-bubble">Welcome! 👋</div>
+    </div>
+
+    <header>
+        <h1>Pudhalvans</h1>
+        <nav>
+            <button class="nav-btn active" onclick="showSection('home')">Home</button>
+            <button class="nav-btn" onclick="showSection('about')">About</button>
+            <button class="nav-btn" onclick="showSection('categories')">Categories</button>
+            <button class="nav-btn" onclick="showSection('contact')">Contact Us</button>
+            <button class="nav-btn subscribe-btn" onclick="subscribeYoutube()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                Subscribe
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="hero">
+                <div class="floating-elements">
+                    <div class="float-item rocket">🚀</div>
+                    <div class="float-item star">⭐</div>
+                    <div class="float-item planet">🪐</div>
+                    <div class="float-item monkey">🐵</div>
+                </div>
+                <h2>Welcome to Pudhalvans</h2>
+                <p>Showcasing the Pudhalvan Family's Lifestyle, Art, and World</p>
+                
+                <div class="carousel-container">
+                    <button class="carousel-btn prev" onclick="prevSlide(); stopCarousel();">❮</button>
+                    <div class="carousel">
+                        <div class="carousel-slide active">
+                            <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&h=400&fit=crop" alt="Happy Family">
+                            <div class="carousel-caption">Welcome to Our World!</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&h=400&fit=crop" alt="Calgary">
+                            <div class="carousel-caption">Calgary, Alberta 🍁</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=400&fit=crop" alt="Learning">
+                            <div class="carousel-caption">Learning & Fun! 📚</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop" alt="Space">
+                            <div class="carousel-caption">Explore the Universe! 🌌</div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn next" onclick="nextSlide(); stopCarousel();">❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="container about-container">
+                <div class="floating-elements">
+                    <div class="float-item tiger">🐯</div>
+                    <div class="float-item elephant">🐘</div>
+                    <div class="float-item maple">🍁</div>
+                </div>
+                <h2>About Us 🌟</h2>
+                <p>Pudhalvans Canada is about showcasing the Pudhalvan Families Life Style, Art and their World. Pudhalvans Family moved to Calgary Alberta Canada a few years ago and started enjoying the living Conditions and comfort of being in Canada thus have always wished to showcase #calgary #alberta #canada to the other parts of the World. Pudhalvan family speaks English and #Tamil being their Mother Tongue, you can expect videos in English and Tamil.</p>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories" class="content-section">
+            <div class="container categories-container">
+                <div class="floating-elements">
+                    <div class="float-item spaceship">🛸</div>
+                    <div class="float-item comet">☄️</div>
+                </div>
+                <h2>Categories 🎨</h2>
+                <div class="categories-grid">
+                    <button class="category-btn games-btn" onclick="showCategory('games')">🎮 Games</button>
+                    <button class="category-btn youtube-btn" onclick="showCategory('youtube')">📺 YouTube Videos</button>
+                    <button class="category-btn math-btn" onclick="showCategory('math')">🔢 Math</button>
+                    <button class="category-btn reading-btn" onclick="showCategory('reading')">📖 Reading</button>
+                    <button class="category-btn ebooks-btn" onclick="showCategory('ebooks')">📚 E-books</button>
+                </div>
+
+                <!-- Category Content Areas -->
+                <div id="games" class="category-content">
+                    <h3>Games</h3>
+                    <p>Games made by Pudhalvans</p>
+                    <div class="content-grid">
+                        <div class="content-item" onclick="window.open('Runner/index.html', '_blank')" style="cursor: pointer;">🏃 Runner</div>
+                        <div class="content-item" onclick="window.open('MyRunner/index.html', '_blank')" style="cursor: pointer;">🏃‍♂️ My Runner</div>
+                        <div class="content-item" onclick="window.open('PudhalvansPuzzles/index.html', '_blank')" style="cursor: pointer;">🧩 Pudhalvans Puzzles</div>
+                    </div>
+                </div>
+
+                <div id="youtube" class="category-content">
+                    <h3>YouTube Videos</h3>
+                    <p>Our YouTube videos made by us</p>
+                    <div class="youtube-grid">
+                        <a href="https://www.youtube.com/watch?v=tcTjulk9LUQ" target="_blank" class="video-item">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/tcTjulk9LUQ/maxresdefault.jpg" alt="Im not an egg song reaction">
+                                <div class="play-button">▶</div>
+                            </div>
+                            <p class="video-title">Im not an egg song reaction</p>
+                        </a>
+                        <a href="https://www.youtube.com/shorts/P1n-VaHAbAA" target="_blank" class="video-item">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/P1n-VaHAbAA/maxresdefault.jpg" alt="YouTube Short">
+                                <div class="play-button">▶</div>
+                            </div>
+                            <p class="video-title">YouTube Short</p>
+                        </a>
+                        <a href="https://www.youtube.com/shorts/74So8w5AQjA" target="_blank" class="video-item">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/74So8w5AQjA/maxresdefault.jpg" alt="YouTube Short">
+                                <div class="play-button">▶</div>
+                            </div>
+                            <p class="video-title">YouTube Short</p>
+                        </a>
+                        <a href="https://youtu.be/dv_A4-y18Z0" target="_blank" class="video-item">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/dv_A4-y18Z0/maxresdefault.jpg" alt="YouTube Video">
+                                <div class="play-button">▶</div>
+                            </div>
+                            <p class="video-title">YouTube Video</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="math" class="category-content">
+                    <h3>Math Activities</h3>
+                    <p>Select your level:</p>
+                    <div class="level-buttons">
+                        <button class="level-btn" onclick="showMathLevel('kindergarten')">Kindergarten</button>
+                        <button class="level-btn" onclick="showMathLevel('elementary')">Elementary</button>
+                        <button class="level-btn" onclick="showMathLevel('middle')">Middle School</button>
+                        <button class="level-btn" onclick="showMathLevel('high')">High School</button>
+                    </div>
+                    
+                    <!-- Kindergarten Math -->
+                    <div id="math-kindergarten" class="level-content">
+                        <h4>🎈 Kindergarten Math - Counting Fun!</h4>
+                        <div class="math-activity">
+                            <p class="activity-instruction">Count the animals and click the correct number!</p>
+                            <div class="counting-game">
+                                <div class="animals-display" id="animalsDisplay">
+                                    🐵 🐵 🐵
+                                </div>
+                                <div class="number-options">
+                                    <button class="number-btn" onclick="checkAnswer(1)">1</button>
+                                    <button class="number-btn" onclick="checkAnswer(2)">2</button>
+                                    <button class="number-btn" onclick="checkAnswer(3)">3</button>
+                                    <button class="number-btn" onclick="checkAnswer(4)">4</button>
+                                    <button class="number-btn" onclick="checkAnswer(5)">5</button>
+                                </div>
+                                <div id="result" class="result-message"></div>
+                                <button class="next-btn" onclick="nextQuestion()">Next Question 🎯</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elementary Math -->
+                    <div id="math-elementary" class="level-content">
+                        <h4>Elementary Math Activities</h4>
+                        <div class="content-grid">
+                            <div class="content-item" onclick="showElementaryMath('addition')">➕ Addition Practice</div>
+                            <div class="content-item" onclick="showElementaryMath('subtraction')">➖ Subtraction Fun</div>
+                            <div class="content-item" onclick="showElementaryMath('multiplication')">✖️ Multiplication Tables</div>
+                        </div>
+                        
+                        <!-- Addition Practice -->
+                        <div id="addition-activity" class="elementary-activity">
+                            <h4>➕ Addition Practice</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Solve the addition problem!</p>
+                                <div class="math-problem">
+                                    <div class="problem-display" id="additionProblem">5 + 3 = ?</div>
+                                    <input type="number" id="additionAnswer" class="math-input" placeholder="Your answer">
+                                    <button class="check-btn" onclick="checkAddition()">Check Answer ✓</button>
+                                </div>
+                                <div id="additionResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextAddition()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Subtraction Fun -->
+                        <div id="subtraction-activity" class="elementary-activity">
+                            <h4>➖ Subtraction Fun</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Solve the subtraction problem!</p>
+                                <div class="math-problem">
+                                    <div class="problem-display" id="subtractionProblem">10 - 4 = ?</div>
+                                    <input type="number" id="subtractionAnswer" class="math-input" placeholder="Your answer">
+                                    <button class="check-btn" onclick="checkSubtraction()">Check Answer ✓</button>
+                                </div>
+                                <div id="subtractionResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextSubtraction()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Multiplication Tables -->
+                        <div id="multiplication-activity" class="elementary-activity">
+                            <h4>✖️ Multiplication Tables</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Solve the multiplication problem!</p>
+                                <div class="math-problem">
+                                    <div class="problem-display" id="multiplicationProblem">3 × 4 = ?</div>
+                                    <input type="number" id="multiplicationAnswer" class="math-input" placeholder="Your answer">
+                                    <button class="check-btn" onclick="checkMultiplication()">Check Answer ✓</button>
+                                </div>
+                                <div id="multiplicationResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextMultiplication()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Middle School Math -->
+                    <div id="math-middle" class="level-content">
+                        <h4>Middle School Math Activities</h4>
+                        <div class="content-grid">
+                            <div class="content-item" onclick="showMiddleMath('fractions')">🔢 Fractions & Decimals</div>
+                            <div class="content-item" onclick="showMiddleMath('algebra')">📐 Algebra Basics</div>
+                            <div class="content-item" onclick="showMiddleMath('geometry')">📏 Geometry</div>
+                        </div>
+                        
+                        <!-- Fractions & Decimals -->
+                        <div id="fractions-activity" class="middle-activity">
+                            <h4>🔢 Fractions & Decimals</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Convert the fraction to a decimal!</p>
+                                <div class="math-problem">
+                                    <div class="problem-display" id="fractionProblem">1/2 = ?</div>
+                                    <input type="number" step="0.01" id="fractionAnswer" class="math-input" placeholder="Your answer">
+                                    <button class="check-btn" onclick="checkFraction()">Check Answer ✓</button>
+                                </div>
+                                <div id="fractionResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextFraction()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Algebra Basics -->
+                        <div id="algebra-activity" class="middle-activity">
+                            <h4>📐 Algebra Basics</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Solve for x!</p>
+                                <div class="math-problem">
+                                    <div class="problem-display" id="algebraProblem">x + 5 = 10</div>
+                                    <input type="number" id="algebraAnswer" class="math-input" placeholder="x = ?">
+                                    <button class="check-btn" onclick="checkAlgebra()">Check Answer ✓</button>
+                                </div>
+                                <div id="algebraResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextAlgebra()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Geometry -->
+                        <div id="geometry-activity" class="middle-activity">
+                            <h4>📏 Geometry</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Calculate the area of the rectangle!</p>
+                                <div class="math-problem">
+                                    <div class="geometry-visual" id="geometryVisual">
+                                        <div class="rectangle" id="rectangle">
+                                            <span class="dimension width-label" id="widthLabel">5</span>
+                                            <span class="dimension height-label" id="heightLabel">3</span>
+                                        </div>
+                                    </div>
+                                    <div class="problem-display" id="geometryProblem">Area = ?</div>
+                                    <input type="number" id="geometryAnswer" class="math-input" placeholder="Your answer">
+                                    <button class="check-btn" onclick="checkGeometry()">Check Answer ✓</button>
+                                </div>
+                                <div id="geometryResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextGeometry()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- High School Math -->
+                    <div id="math-high" class="level-content">
+                        <h4>High School Math Activities</h4>
+                        <div class="content-grid">
+                            <div class="content-item" onclick="showHighMath('advanced-algebra')">🔬 Advanced Algebra</div>
+                            <div class="content-item" onclick="showHighMath('trigonometry')">📊 Trigonometry</div>
+                            <div class="content-item">📈 Calculus Intro</div>
+                        </div>
+                        
+                        <!-- Advanced Algebra -->
+                        <div id="advanced-algebra-activity" class="high-activity">
+                            <h4>🔬 Advanced Algebra - Quadratic Equations</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Solve the quadratic equation! Find both values of x.</p>
+                                <div class="math-problem">
+                                    <div class="problem-display" id="quadraticProblem">x² - 5x + 6 = 0</div>
+                                    <div class="dual-input">
+                                        <div>
+                                            <label>x₁ = </label>
+                                            <input type="number" id="quadraticAnswer1" class="math-input small" placeholder="First x">
+                                        </div>
+                                        <div>
+                                            <label>x₂ = </label>
+                                            <input type="number" id="quadraticAnswer2" class="math-input small" placeholder="Second x">
+                                        </div>
+                                    </div>
+                                    <button class="check-btn" onclick="checkQuadratic()">Check Answer ✓</button>
+                                </div>
+                                <div id="quadraticResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextQuadratic()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Trigonometry -->
+                        <div id="trigonometry-activity" class="high-activity">
+                            <h4>📊 Trigonometry</h4>
+                            <div class="math-activity">
+                                <p class="activity-instruction">Calculate the trigonometric value! (Round to 2 decimal places)</p>
+                                <div class="math-problem">
+                                    <div class="unit-circle">
+                                        <div class="circle"></div>
+                                        <div class="angle-line" id="angleLine"></div>
+                                        <div class="angle-point" id="anglePoint"></div>
+                                        <div class="axis horizontal"></div>
+                                        <div class="axis vertical"></div>
+                                    </div>
+                                    <div class="problem-display" id="trigProblem">sin(30°) = ?</div>
+                                    <input type="number" step="0.01" id="trigAnswer" class="math-input" placeholder="Your answer">
+                                    <button class="check-btn" onclick="checkTrig()">Check Answer ✓</button>
+                                </div>
+                                <div id="trigResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextTrig()">Next Problem 🎯</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reading" class="category-content">
+                    <h3>Reading Activities</h3>
+                    <p>Select your level:</p>
+                    <div class="level-buttons">
+                        <button class="level-btn" onclick="showReadingLevel('kindergarten')">Kindergarten</button>
+                        <button class="level-btn" onclick="showReadingLevel('elementary')">Elementary</button>
+                        <button class="level-btn" onclick="showReadingLevel('middle')">Middle School</button>
+                        <button class="level-btn" onclick="showReadingLevel('high')">High School</button>
+                    </div>
+                    
+                    <!-- Kindergarten Reading -->
+                    <div id="reading-kindergarten" class="level-content">
+                        <h4>📚 Kindergarten Reading - Letter Sounds!</h4>
+                        <div class="reading-activity">
+                            <p class="activity-instruction">Click on the letter that makes the sound!</p>
+                            <div class="letter-game">
+                                <div class="sound-display">
+                                    <div class="sound-icon" id="soundIcon">🔊</div>
+                                    <div class="sound-text" id="soundText">Click "Play Sound" to hear the letter!</div>
+                                    <button class="play-sound-btn" onclick="playLetterSound()">🔊 Play Sound</button>
+                                </div>
+                                <div class="letter-options" id="letterOptions">
+                                    <!-- Letters will be generated here -->
+                                </div>
+                                <div id="readingResult" class="result-message"></div>
+                                <button class="next-btn" onclick="nextLetterQuestion()">Next Letter 📖</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elementary Reading -->
+                    <div id="reading-elementary" class="level-content">
+                        <h4>Elementary Reading Activities</h4>
+                        <div class="content-grid">
+                            <div class="content-item" onclick="showElementaryReading('sight-words')">👁️ Sight Words</div>
+                            <div class="content-item" onclick="showElementaryReading('short-stories')">📖 Short Stories</div>
+                            <div class="content-item" onclick="showElementaryReading('rhyming')">🎵 Rhyming Words</div>
+                        </div>
+                        
+                        <!-- Sight Words -->
+                        <div id="sight-words-activity" class="elementary-reading-activity">
+                            <h4>👁️ Sight Words Practice</h4>
+                            <div class="reading-activity">
+                                <p class="activity-instruction">Read the word and click "I Know It!" when you recognize it!</p>
+                                <div class="sight-word-game">
+                                    <div class="sight-word-display" id="sightWordDisplay">the</div>
+                                    <button class="know-btn" onclick="nextSightWord()">I Know It! ✓</button>
+                                    <div class="sight-word-progress">
+                                        <p>Words Practiced: <span id="sightWordCount">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Short Stories -->
+                        <div id="short-stories-activity" class="elementary-reading-activity">
+                            <h4>📖 Short Stories</h4>
+                            <div class="reading-activity">
+                                <div class="story-selector">
+                                    <button class="story-btn" onclick="loadStory('sunny-day')">☀️ A Sunny Day</button>
+                                    <button class="story-btn" onclick="loadStory('best-friends')">👫 Best Friends</button>
+                                    <button class="story-btn" onclick="loadStory('magic-garden')">🌺 The Magic Garden</button>
+                                </div>
+                                <div class="story-content" id="storyContent">
+                                    <p>Select a story to read!</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Rhyming Words -->
+                        <div id="rhyming-activity" class="elementary-reading-activity">
+                            <h4>🎵 Rhyming Words</h4>
+                            <div class="reading-activity">
+                                <p class="activity-instruction">Which word rhymes with the word shown?</p>
+                                <div class="rhyme-game">
+                                    <div class="rhyme-word-display" id="rhymeWord">cat</div>
+                                    <div class="rhyme-options" id="rhymeOptions">
+                                        <!-- Options will be generated here -->
+                                    </div>
+                                    <div id="rhymeResult" class="result-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Middle School Reading -->
+                    <div id="reading-middle" class="level-content">
+                        <h4>Middle School Reading Activities</h4>
+                        <div class="content-grid">
+                            <div class="content-item" onclick="showMiddleReading('comprehension')">📝 Comprehension</div>
+                            <div class="content-item" onclick="showMiddleReading('vocabulary')">📚 Vocabulary Builder</div>
+                            <div class="content-item" onclick="showMiddleReading('analysis')">🔍 Story Analysis</div>
+                        </div>
+                        
+                        <!-- Comprehension -->
+                        <div id="comprehension-activity" class="middle-reading-activity">
+                            <h4>📝 Reading Comprehension</h4>
+                            <div class="reading-activity">
+                                <div class="comprehension-passage" id="comprehensionPassage">
+                                    <h3>The Northern Lights</h3>
+                                    <p>The Northern Lights, also known as Aurora Borealis, are one of nature's most spectacular displays. They occur when charged particles from the sun collide with gases in Earth's atmosphere. These collisions create beautiful curtains of light that dance across the night sky in shades of green, pink, red, and purple.</p>
+                                    <p>The best places to see the Northern Lights are near the Arctic Circle, including Alaska, Canada, Iceland, and Norway. The lights are most visible during winter months when nights are longest. Many people travel thousands of miles just to witness this incredible natural phenomenon.</p>
+                                </div>
+                                <div class="comprehension-question">
+                                    <p class="question-text" id="questionText">What causes the Northern Lights?</p>
+                                    <div class="answer-options" id="answerOptions">
+                                        <button class="answer-btn" onclick="checkComprehension('A')">A) Moonlight reflecting off ice</button>
+                                        <button class="answer-btn" onclick="checkComprehension('B')">B) Charged particles colliding with gases</button>
+                                        <button class="answer-btn" onclick="checkComprehension('C')">C) Lightning in the atmosphere</button>
+                                        <button class="answer-btn" onclick="checkComprehension('D')">D) Stars shining brightly</button>
+                                    </div>
+                                    <div id="comprehensionResult" class="result-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Vocabulary Builder -->
+                        <div id="vocabulary-activity" class="middle-reading-activity">
+                            <h4>📚 Vocabulary Builder</h4>
+                            <div class="reading-activity">
+                                <p class="activity-instruction">Match the word with its correct definition!</p>
+                                <div class="vocab-game">
+                                    <div class="vocab-word-display" id="vocabWord">Persevere</div>
+                                    <div class="vocab-definition" id="vocabDefinition">
+                                        <p>What does this word mean?</p>
+                                    </div>
+                                    <div class="vocab-options" id="vocabOptions">
+                                        <button class="vocab-option-btn" onclick="checkVocab('A')">To give up easily</button>
+                                        <button class="vocab-option-btn" onclick="checkVocab('B')">To continue despite difficulties</button>
+                                        <button class="vocab-option-btn" onclick="checkVocab('C')">To run very fast</button>
+                                        <button class="vocab-option-btn" onclick="checkVocab('D')">To speak loudly</button>
+                                    </div>
+                                    <div id="vocabResult" class="result-message"></div>
+                                    <button class="next-btn" onclick="nextVocab()">Next Word 📖</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Story Analysis -->
+                        <div id="analysis-activity" class="middle-reading-activity">
+                            <h4>🔍 Story Analysis</h4>
+                            <div class="reading-activity">
+                                <div class="analysis-passage">
+                                    <h3>The Lost Key</h3>
+                                    <p><em>Sarah frantically searched through her backpack. The key to her grandmother's house was nowhere to be found. She had promised to water the plants while her grandmother was away, but without the key, she couldn't get inside. Her heart raced as she retraced her steps in her mind. Then she remembered - she had put it in her jacket pocket that morning!</em></p>
+                                </div>
+                                <div class="analysis-questions">
+                                    <div class="analysis-question-item">
+                                        <p class="analysis-question-text">What is the main conflict in this story?</p>
+                                        <div class="analysis-options">
+                                            <button class="analysis-btn" onclick="checkAnalysis(1, 'A')">A) Sarah doesn't like her grandmother</button>
+                                            <button class="analysis-btn" onclick="checkAnalysis(1, 'B')">B) Sarah can't find the key</button>
+                                            <button class="analysis-btn" onclick="checkAnalysis(1, 'C')">C) The plants are dying</button>
+                                            <button class="analysis-btn" onclick="checkAnalysis(1, 'D')">D) Sarah forgot to go</button>
+                                        </div>
+                                        <div id="analysisResult1" class="result-message"></div>
+                                    </div>
+                                    <div class="analysis-question-item">
+                                        <p class="analysis-question-text">What is the mood of this passage?</p>
+                                        <div class="analysis-options">
+                                            <button class="analysis-btn" onclick="checkAnalysis(2, 'A')">A) Joyful and excited</button>
+                                            <button class="analysis-btn" onclick="checkAnalysis(2, 'B')">B) Anxious and worried</button>
+                                            <button class="analysis-btn" onclick="checkAnalysis(2, 'C')">C) Angry and frustrated</button>
+                                            <button class="analysis-btn" onclick="checkAnalysis(2, 'D')">D) Calm and peaceful</button>
+                                        </div>
+                                        <div id="analysisResult2" class="result-message"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- High School Reading -->
+                    <div id="reading-high" class="level-content">
+                        <h4>High School Reading Activities</h4>
+                        <div class="content-grid">
+                            <div class="content-item" onclick="showHighReading('literature')">📖 Literature Analysis</div>
+                            <div class="content-item" onclick="showHighReading('critical')">🧠 Critical Reading</div>
+                            <div class="content-item" onclick="showHighReading('essay')">✍️ Essay Writing</div>
+                        </div>
+                        
+                        <!-- Literature Analysis -->
+                        <div id="literature-activity" class="high-reading-activity">
+                            <h4>📖 Literature Analysis</h4>
+                            <div class="reading-activity">
+                                <div class="literature-passage">
+                                    <h3>Excerpt from "The Road Not Taken" by Robert Frost</h3>
+                                    <div class="poem-text">
+                                        <p><em>Two roads diverged in a yellow wood,<br>
+                                        And sorry I could not travel both<br>
+                                        And be one traveler, long I stood<br>
+                                        And looked down one as far as I could<br>
+                                        To where it bent in the undergrowth;</em></p>
+                                        <p><em>Then took the other, as just as fair,<br>
+                                        And having perhaps the better claim,<br>
+                                        Because it was grassy and wanted wear;<br>
+                                        Though as for that the passing there<br>
+                                        Had worn them really about the same...</em></p>
+                                    </div>
+                                </div>
+                                <div class="literature-questions">
+                                    <div class="lit-question-item">
+                                        <p class="lit-question-text">What literary device is primarily used in this poem?</p>
+                                        <div class="lit-options">
+                                            <button class="lit-btn" onclick="checkLiterature(1, 'A')">A) Personification</button>
+                                            <button class="lit-btn" onclick="checkLiterature(1, 'B')">B) Metaphor (roads as life choices)</button>
+                                            <button class="lit-btn" onclick="checkLiterature(1, 'C')">C) Onomatopoeia</button>
+                                            <button class="lit-btn" onclick="checkLiterature(1, 'D')">D) Hyperbole</button>
+                                        </div>
+                                        <div id="litResult1" class="result-message"></div>
+                                    </div>
+                                    <div class="lit-question-item">
+                                        <p class="lit-question-text">What is the central theme of this excerpt?</p>
+                                        <div class="lit-options">
+                                            <button class="lit-btn" onclick="checkLiterature(2, 'A')">A) The beauty of nature</button>
+                                            <button class="lit-btn" onclick="checkLiterature(2, 'B')">B) Making difficult life choices</button>
+                                            <button class="lit-btn" onclick="checkLiterature(2, 'C')">C) The importance of travel</button>
+                                            <button class="lit-btn" onclick="checkLiterature(2, 'D')">D) Friendship and loyalty</button>
+                                        </div>
+                                        <div id="litResult2" class="result-message"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Critical Reading -->
+                        <div id="critical-activity" class="high-reading-activity">
+                            <h4>🧠 Critical Reading</h4>
+                            <div class="reading-activity">
+                                <div class="critical-passage">
+                                    <h3>Argumentative Text: Social Media and Society</h3>
+                                    <p>Social media has fundamentally transformed how we communicate and interact. Proponents argue that it connects people across vast distances, enables rapid information sharing, and provides platforms for marginalized voices. However, critics contend that social media contributes to mental health issues, spreads misinformation, and creates echo chambers that polarize society. Studies show that excessive social media use correlates with increased anxiety and depression, particularly among teenagers. Yet, the same platforms have been instrumental in organizing social movements and raising awareness about critical issues.</p>
+                                </div>
+                                <div class="critical-questions">
+                                    <div class="critical-question-item">
+                                        <p class="critical-question-text">What is the author's tone in this passage?</p>
+                                        <div class="critical-options">
+                                            <button class="critical-btn" onclick="checkCritical(1, 'A')">A) Strongly biased against social media</button>
+                                            <button class="critical-btn" onclick="checkCritical(1, 'B')">B) Balanced and objective</button>
+                                            <button class="critical-btn" onclick="checkCritical(1, 'C')">C) Enthusiastically supportive</button>
+                                            <button class="critical-btn" onclick="checkCritical(1, 'D')">D) Sarcastic and mocking</button>
+                                        </div>
+                                        <div id="criticalResult1" class="result-message"></div>
+                                    </div>
+                                    <div class="critical-question-item">
+                                        <p class="critical-question-text">Which statement best represents the structure of this argument?</p>
+                                        <div class="critical-options">
+                                            <button class="critical-btn" onclick="checkCritical(2, 'A')">A) Only presents negative aspects</button>
+                                            <button class="critical-btn" onclick="checkCritical(2, 'B')">B) Presents both sides with supporting evidence</button>
+                                            <button class="critical-btn" onclick="checkCritical(2, 'C')">C) Uses only personal opinions</button>
+                                            <button class="critical-btn" onclick="checkCritical(2, 'D')">D) Focuses solely on statistics</button>
+                                        </div>
+                                        <div id="criticalResult2" class="result-message"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Essay Writing -->
+                        <div id="essay-activity" class="high-reading-activity">
+                            <h4>✍️ Essay Writing Practice</h4>
+                            <div class="reading-activity">
+                                <div class="essay-prompt">
+                                    <h3>Essay Prompt</h3>
+                                    <p class="prompt-text">"Technology has made our lives easier but has also created new challenges. Discuss both the benefits and drawbacks of technological advancement in modern society."</p>
+                                </div>
+                                <div class="essay-structure">
+                                    <h3>Essay Structure Guide</h3>
+                                    <div class="structure-section">
+                                        <h4>Introduction</h4>
+                                        <textarea id="essayIntro" class="essay-input" placeholder="Write your introduction paragraph here... Include a hook, background information, and your thesis statement."></textarea>
+                                    </div>
+                                    <div class="structure-section">
+                                        <h4>Body Paragraph 1 (Benefits)</h4>
+                                        <textarea id="essayBody1" class="essay-input" placeholder="Write about the benefits of technology... Include topic sentence, evidence, and analysis."></textarea>
+                                    </div>
+                                    <div class="structure-section">
+                                        <h4>Body Paragraph 2 (Drawbacks)</h4>
+                                        <textarea id="essayBody2" class="essay-input" placeholder="Write about the drawbacks of technology... Include topic sentence, evidence, and analysis."></textarea>
+                                    </div>
+                                    <div class="structure-section">
+                                        <h4>Conclusion</h4>
+                                        <textarea id="essayConclusion" class="essay-input" placeholder="Write your conclusion... Restate thesis, summarize main points, and provide final thoughts."></textarea>
+                                    </div>
+                                    <div class="essay-actions">
+                                        <button class="save-essay-btn" onclick="saveEssay()">💾 Save Draft</button>
+                                        <button class="clear-essay-btn" onclick="clearEssay()">🗑️ Clear All</button>
+                                    </div>
+                                    <div id="essayFeedback" class="essay-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ebooks" class="category-content">
+                    <h3>E-books</h3>
+                    <div class="ebooks-grid">
+                        <div class="ebook-item" onclick="openEbook('monkey-adventure')">
+                            <div class="ebook-cover">
+                                <div class="ebook-icon">🐵</div>
+                                <h4>The Monkey's Adventure</h4>
+                                <p class="ebook-author">By Pudhalvans</p>
+                            </div>
+                            <button class="read-btn">📖 Read Now</button>
+                        </div>
+                        <div class="ebook-item" onclick="openEbook('space-explorer')">
+                            <div class="ebook-cover">
+                                <div class="ebook-icon">🚀</div>
+                                <h4>Space Explorer</h4>
+                                <p class="ebook-author">By Pudhalvans</p>
+                            </div>
+                            <button class="read-btn">📖 Read Now</button>
+                        </div>
+                        <div class="ebook-item" onclick="openEbook('tiger-tale')">
+                            <div class="ebook-cover">
+                                <div class="ebook-icon">🐯</div>
+                                <h4>The Brave Tiger</h4>
+                                <p class="ebook-author">By Pudhalvans</p>
+                            </div>
+                            <button class="read-btn">📖 Read Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-book Reader Modal -->
+                <div id="ebookModal" class="ebook-modal">
+                    <div class="ebook-reader">
+                        <button class="close-ebook" onclick="closeEbook()">✖</button>
+                        <h2 id="ebookTitle"></h2>
+                        <button class="read-aloud-btn" onclick="readAloud()">🔊 Read Aloud</button>
+                        <div class="ebook-content" id="ebookContent"></div>
+                        <div class="ebook-navigation">
+                            <button class="nav-ebook-btn" onclick="previousPage()">⬅ Previous</button>
+                            <span id="pageNumber">Page 1</span>
+                            <button class="nav-ebook-btn" onclick="nextPage()">Next ➡</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section">
+            <div class="container contact-container">
+                <div class="floating-elements">
+                    <div class="float-item parrot">🦜</div>
+                    <div class="float-item butterfly">🦋</div>
+                    <div class="float-item rainbow">🌈</div>
+                </div>
+                <h2>Contact Us 📧</h2>
+                
+                <!-- Hidden Reset Button - Click "Contact Us" title 5 times to reveal -->
+                <div id="resetButtonContainer" class="reset-button-container" style="display: none;">
+                    <button type="button" class="reset-opening-btn" onclick="resetGrandOpening()">
+                        🔄 Reset Grand Opening
+                    </button>
+                    <p class="reset-info">Click to see the grand opening again on next page load</p>
+                </div>
+                
+                <form id="contactForm" onsubmit="handleSubmit(event)"></form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" class="btn-cancel" onclick="cancelForm()">Cancel</button>
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

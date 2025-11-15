@@ -1,0 +1,798 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 25%, #45B7D1 50%, #FFA07A 75%, #98D8C8 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#game-container {
+    position: relative;
+    width: 900px;
+    height: 650px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+#game-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#game-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+#game-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+#game-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#gameCanvas {
+    display: block;
+    background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
+    width: 900px;
+    height: 650px;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.brand-logo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 50;
+    text-align: right;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FF6B6B, #4ECDC4, #FFA07A);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: logoGlow 3s ease infinite;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.logo-subtext {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-top: -2px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes logoGlow {
+    0%, 100% { 
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.6));
+    }
+    50% { 
+        background-position: 100% 50%;
+        filter: drop-shadow(0 0 12px rgba(78, 205, 196, 0.8));
+    }
+}
+
+#ui-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 10;
+}
+
+#level-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+#level-display {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    color: #FFE66D;
+    text-shadow: 0 0 10px rgba(255, 230, 109, 0.8);
+}
+
+#level-progress-bar {
+    width: 200px;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#level-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4ECDC4, #FFE66D, #FF6B6B);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 230, 109, 0.6);
+}
+
+#level-target {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#score-display {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Orbitron', sans-serif;
+}
+
+#lives-display {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Poppins', sans-serif;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.95), rgba(78, 205, 196, 0.95));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.menu-logo {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.menu-logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFE66D, #FF6B6B, #4ECDC4, #FFA07A);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: menuLogoShine 4s ease infinite;
+    letter-spacing: 6px;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+}
+
+.menu-logo-subtext {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 8px;
+    margin-top: 5px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    animation: pulse 2s ease infinite;
+}
+
+@keyframes menuLogoShine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.screen.hidden {
+    display: none;
+}
+
+.screen h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    margin-bottom: 15px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+.screen p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.level-complete-info {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.level-complete-info p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#completed-level {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px !important;
+    color: #FFE66D;
+    text-shadow: 0 0 15px rgba(255, 230, 109, 0.8);
+}
+
+#next-level-preview {
+    font-family: 'Orbitron', sans-serif;
+    color: #4ECDC4;
+    font-size: 16px !important;
+}
+
+.screen button {
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 20px;
+    padding: 18px 50px;
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FFE66D 0%, #FF6B6B 50%, #FFA07A 100%);
+    background-size: 200% 200%;
+    color: white;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+    animation: buttonGlow 3s ease infinite;
+}
+
+@keyframes buttonGlow {
+    0%, 100% { 
+        background-position: 0% 50%;
+        box-shadow: 0 5px 30px rgba(255, 107, 107, 0.6);
+    }
+    50% { 
+        background-position: 100% 50%;
+        box-shadow: 0 5px 30px rgba(255, 230, 109, 0.8);
+    }
+}
+
+.screen button:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 10px 40px rgba(255, 107, 107, 0.8);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.screen button:active {
+    transform: scale(1.05) translateY(-1px);
+}
+
+.camera-menu {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 200;
+}
+
+.camera-toggle-btn {
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.camera-toggle-btn:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.5);
+}
+
+.camera-panel {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(50, 50, 50, 0.95));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 250px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.camera-panel.hidden {
+    display: none;
+}
+
+.camera-panel h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(78, 205, 196, 0.5);
+}
+
+.camera-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.camera-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+.camera-option:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.camera-option.active {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.3), rgba(255, 107, 107, 0.3));
+    border-color: rgba(78, 205, 196, 0.8);
+}
+
+.camera-icon {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.camera-option span:nth-child(2) {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.camera-desc {
+    font-size: 11px;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.music-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 200;
+}
+
+.music-toggle-btn {
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.music-toggle-btn:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+}
+
+.music-panel {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(50, 50, 50, 0.95));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 280px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.music-panel.hidden {
+    display: none;
+}
+
+.music-panel h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(255, 107, 107, 0.5);
+}
+
+.song-list {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.song-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.song-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-5px);
+}
+
+.song-item.playing {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(78, 205, 196, 0.3));
+    border: 1px solid rgba(255, 230, 109, 0.5);
+}
+
+.song-item.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.song-item.locked:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: none;
+}
+
+.song-item.locked .play-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.song-name {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 14px;
+    flex: 1;
+}
+
+.play-btn {
+    background: rgba(255, 107, 107, 0.8);
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.play-btn:hover {
+    background: rgba(255, 107, 107, 1);
+    transform: scale(1.1);
+}
+
+.volume-control {
+    margin: 15px 0;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.volume-control label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+#volume-slider {
+    width: 100%;
+    cursor: pointer;
+}
+
+.stop-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(231, 76, 60, 0.8);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stop-btn:hover {
+    background: rgba(231, 76, 60, 1);
+    transform: scale(1.05);
+}
+
+/* Loading Screen Styles */
+#loading-screen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #FF6B6B 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+}
+
+.loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.loading-logo {
+    text-align: center;
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.loading-logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFE66D, #FF6B6B, #4ECDC4, #FFA07A);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: menuLogoShine 4s ease infinite;
+    letter-spacing: 8px;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+}
+
+.loading-logo-subtext {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 12px;
+    margin-top: 10px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s ease infinite;
+}
+
+.loading-bar-container {
+    width: 400px;
+    text-align: center;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #FFE66D, #FF6B6B, #4ECDC4);
+    background-size: 200% 100%;
+    animation: loadingBarShine 2s linear infinite;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 230, 109, 0.8);
+}
+
+@keyframes loadingBarShine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.loading-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin-top: 15px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.loading-dots {
+    display: inline-block;
+    width: 30px;
+    text-align: left;
+}
+
+.loading-tips {
+    max-width: 500px;
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.loading-tips p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: white;
+    margin: 0;
+    line-height: 1.6;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    animation: tipFade 2s ease-in-out infinite;
+}
+
+@keyframes tipFade {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.skip-loading-btn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    z-index: 1000;
+    position: relative;
+}
+
+.skip-loading-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+}
+
+.skip-loading-btn:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#character-selection {
+    display: flex;
+    gap: 12px;
+    margin: 15px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.character-option {
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 15px;
+    border: 3px solid transparent;
+    background: rgba(0, 0, 0, 0.2);
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.character-option:hover {
+    transform: scale(1.1) translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.character-option.selected {
+    border-color: #FFE66D;
+    background: rgba(255, 230, 109, 0.2);
+    transform: scale(1.05);
+}
+
+.character-preview-canvas {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    margin: 0 auto 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    display: block;
+}
+
+.character-option .character-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 3px 0 2px 0;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.character-option .character-desc {
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    margin: 0 0 5px 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.character-option .character-power {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    margin: 0;
+    color: #FFE66D;
+    text-shadow: 0 0 10px rgba(255, 230, 109, 0.5);
+}
+
+.character-option .character-power-desc {
+    font-family: 'Poppins', sans-serif;
+    font-size: 8px;
+    font-weight: 400;
+    margin: 2px 0 0 0;
+    color: rgba(255, 255, 255, 0.7);
+}

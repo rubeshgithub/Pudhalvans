@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pudhalvans Puzzles - Kids Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>🧩 Pudhalvans Puzzles</h1>
+            <button class="btn back-btn" onclick="window.close()">Back to Menu</button>
+        </header>
+
+        <!-- Difficulty Selection Screen -->
+        <div class="difficulty-screen" id="difficultyScreen">
+            <div class="difficulty-content">
+                <h2>Choose Difficulty</h2>
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn easy-btn" onclick="selectDifficulty('easy')">
+                        <span class="emoji">😊</span>
+                        <span class="text">EASY</span>
+                        <span class="desc">2x2 Grid (4 pieces)</span>
+                    </button>
+                    <button class="difficulty-btn medium-btn" onclick="selectDifficulty('medium')">
+                        <span class="emoji">🤔</span>
+                        <span class="text">MEDIUM</span>
+                        <span class="desc">3x3 Grid (9 pieces)</span>
+                    </button>
+                    <button class="difficulty-btn hard-btn" onclick="selectDifficulty('hard')">
+                        <span class="emoji">😎</span>
+                        <span class="text">HARD</span>
+                        <span class="desc">4x4 Grid (16 pieces)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area" id="gameArea" style="display: none;">
+            <div class="game-controls">
+                <button class="btn" id="newPuzzleBtn">New Puzzle</button>
+                <button class="btn" id="hintBtn">Show Hint</button>
+                <button class="btn" id="changeDifficultyBtn">Change Difficulty</button>
+            </div>
+
+            <div class="game-content">
+                <!-- Left side - Puzzle Board -->
+                <div class="puzzle-container">
+                    <h2>🎯 Puzzle Board</h2>
+                    <div id="puzzleBoard" class="puzzle-board">
+                        <!-- Puzzle slots will be generated here -->
+                    </div>
+                    <div class="progress">
+                        <p>Pieces Placed: <span id="piecesPlaced">0</span> / <span id="totalPieces">9</span></p>
+                    </div>
+                </div>
+
+                <!-- Right side - Pieces Box -->
+                <div class="pieces-container">
+                    <h2>🎨 Puzzle Pieces</h2>
+                    <div id="piecesBox" class="pieces-box">
+                        <!-- Puzzle pieces will be generated here -->
+                    </div>
+                    <div class="hint-image" id="hintImage">
+                        <p>Complete Picture:</p>
+                        <img id="hintImg" src="" alt="Hint">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="victory-screen" id="victoryScreen">
+            <div class="victory-content">
+                <h2>🎉 Puzzle Complete! 🎉</h2>
+                <p>Great job! You solved the puzzle!</p>
+                <button class="btn" onclick="startNewPuzzle()">Play Again</button>
+                <button class="btn" onclick="backToDifficulty()">Change Difficulty</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

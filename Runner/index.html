@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pudhalvan Games - Endless Runner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <div class="brand-logo">
+            <div class="logo-text">PUDHALVAN</div>
+            <div class="logo-subtext">GAMES</div>
+        </div>
+        <div id="ui-overlay">
+            <div id="level-info">
+                <div id="level-display">Level: 1</div>
+                <div id="level-progress-bar">
+                    <div id="level-progress-fill"></div>
+                </div>
+                <div id="level-target">Target: 500</div>
+            </div>
+            <div id="score-display">Score: 0</div>
+            <div id="lives-display">Lives: ❤️</div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="loading-screen" class="screen">
+            <div class="loading-content">
+                <div class="loading-logo">
+                    <div class="loading-logo-text">PUDHALVAN</div>
+                    <div class="loading-logo-subtext">GAMES</div>
+                </div>
+                <div class="loading-bar-container">
+                    <div class="loading-bar">
+                        <div class="loading-bar-fill"></div>
+                    </div>
+                    <div class="loading-text">Loading<span class="loading-dots"></span></div>
+                </div>
+                <div class="loading-tips">
+                    <p id="loading-tip">Press SPACE or W to jump over obstacles!</p>
+                </div>
+                <button id="skip-loading-btn" class="skip-loading-btn">Skip Loading ⏭️</button>
+            </div>
+        </div>
+        <div id="menu-screen" class="screen hidden">
+            <div class="menu-logo">
+                <div class="menu-logo-text">PUDHALVAN</div>
+                <div class="menu-logo-subtext">GAMES</div>
+            </div>
+            <h1>ENDLESS RUNNER</h1>
+            <p>Choose Your Character to Start:</p>
+            <div id="character-selection">
+                <div class="character-option" data-character="runner">
+                    <canvas class="character-preview-canvas" width="80" height="80"></canvas>
+                    <p class="character-name">🏃 Runner</p>
+                    <p class="character-desc">Fast and agile athlete</p>
+                    <p class="character-power">⚡ Speed Boost (E)</p>
+                    <p class="character-power-desc">Double speed for 3s</p>
+                </div>
+                <div class="character-option" data-character="ninja">
+                    <canvas class="character-preview-canvas" width="80" height="80"></canvas>
+                    <p class="character-name">🥷 Ninja</p>
+                    <p class="character-desc">Stealthy warrior</p>
+                    <p class="character-power">💨 Dash (E)</p>
+                    <p class="character-power-desc">Teleport forward</p>
+                </div>
+                <div class="character-option" data-character="robot">
+                    <canvas class="character-preview-canvas" width="80" height="80"></canvas>
+                    <p class="character-name">🤖 Robot</p>
+                    <p class="character-desc">Mechanical defender</p>
+                    <p class="character-power">🛡️ Shield (E)</p>
+                    <p class="character-power-desc">Block 1 hit for 5s</p>
+                </div>
+                <div class="character-option" data-character="alien">
+                    <canvas class="character-preview-canvas" width="80" height="80"></canvas>
+                    <p class="character-name">👽 Alien</p>
+                    <p class="character-desc">Cosmic visitor</p>
+                    <p class="character-power">🌟 Float (E)</p>
+                    <p class="character-power-desc">Slow fall for 4s</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 16px; font-weight: 600;">Controls: SPACE/W to Jump | E to Use Power</p>
+        </div>
+        <div id="game-over-screen" class="screen hidden">
+            <h1>GAME OVER</h1>
+            <p id="final-score">Score: 0</p>
+            <p id="final-level">Level Reached: 1</p>
+            <button id="restart-btn">PLAY AGAIN</button>
+        </div>
+        <div id="level-complete-screen" class="screen hidden">
+            <h1>LEVEL COMPLETE!</h1>
+            <div class="level-complete-info">
+                <p id="completed-level">Level 1 Completed!</p>
+                <p id="level-score">Score: 0</p>
+                <p id="next-level-preview">Next: Level 2</p>
+            </div>
+            <button id="next-level-btn">NEXT LEVEL</button>
+        </div>
+        <div id="camera-menu" class="camera-menu">
+            <button id="camera-toggle-btn" class="camera-toggle-btn">📷</button>
+            <div id="camera-panel" class="camera-panel hidden">
+                <h3>Camera Angle</h3>
+                <div class="camera-options">
+                    <button class="camera-option active" data-angle="side">
+                        <span class="camera-icon">📐</span>
+                        <span>Side View</span>
+                        <span class="camera-desc">Classic runner view</span>
+                    </button>
+                    <button class="camera-option" data-angle="close">
+                        <span class="camera-icon">🔍</span>
+                        <span>Close Up</span>
+                        <span class="camera-desc">Zoomed in action</span>
+                    </button>
+                    <button class="camera-option" data-angle="far">
+                        <span class="camera-icon">🌆</span>
+                        <span>Wide View</span>
+                        <span class="camera-desc">See more city</span>
+                    </button>
+                    <button class="camera-option" data-angle="back">
+                        <span class="camera-icon">🎮</span>
+                        <span>Back View</span>
+                        <span class="camera-desc">Behind player (3D)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="music-menu" class="music-menu">
+            <button id="music-toggle-btn" class="music-toggle-btn">🎵</button>
+            <div id="music-panel" class="music-panel hidden">
+                <h3>Music Player</h3>
+                <div class="song-list">
+                    <div class="song-item" data-song="song1">
+                        <span class="song-name">I want in that Way</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="song-item" data-song="song2">
+                        <span class="song-name">Electronic Beat 2</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="song-item" data-song="song3">
+                        <span class="song-name">Electronic Beat 3</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="song-item" data-song="song4">
+                        <span class="song-name">Electronic Beat 4</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="song-item" data-song="song5">
+                        <span class="song-name">Electronic Beat 5</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="song-item locked" data-song="song6" data-unlock-level="20">
+                        <span class="song-name">🔒 Epic Track 1 (Lvl 20)</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="song-item locked" data-song="song7" data-unlock-level="20">
+                        <span class="song-name">🔒 Epic Track 2 (Lvl 20)</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="song-item locked" data-song="song8" data-unlock-level="20">
+                        <span class="song-name">🔒 Epic Track 3 (Lvl 20)</span>
+                        <button class="play-btn">▶️</button>
+                    </div>
+                </div>
+                <div class="volume-control">
+                    <label>Volume: <span id="volume-value">30</span>%</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="30">
+                </div>
+                <button id="stop-music-btn" class="stop-btn">⏹️ Stop Music</button>
+            </div>
+        </div>
+    </div>
+    <audio id="song1" loop>
+        <source src="songs/Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="song2" loop>
+        <source src="songs/Song-2.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="song3" loop>
+        <source src="songs/Song-3.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="song4" loop>
+        <source src="songs/Song-4.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="song5" loop>
+        <source src="songs/Song-5.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="song6" loop>
+        <source src="songs/Song-6.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="song7" loop>
+        <source src="songs/Song-7.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="song8" loop>
+        <source src="songs/Song-8.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="crash-sound">
+        <source src="songs/crash-sound.mp3" type="audio/mpeg">
+    </audio>
+    <script src="game.js"></script>
+</body>
+</html>

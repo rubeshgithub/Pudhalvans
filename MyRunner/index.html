@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Runner - Pudhalvans Games</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+        }
+        #game-container {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/scenes/MenuScene.js"></script>
+    <script src="js/scenes/CharacterScene.js"></script>
+    <script src="js/scenes/TrainingScene.js"></script>
+    <script src="js/scenes/GameScene.js"></script>
+    <script src="js/entities/Runner.js"></script>
+    <script src="js/entities/Bot.js"></script>
+    <script src="js/managers/CharacterManager.js"></script>
+    <script src="js/managers/LevelManager.js"></script>
+    <script src="js/managers/ScoreManager.js"></script>
+    <script src="js/managers/UpgradeManager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

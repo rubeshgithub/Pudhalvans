@@ -9,58 +9,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Grand Opening Screen -->
-    <div id="grandOpening" class="grand-opening-overlay">
-        <div class="grand-opening-content">
-            <div class="opening-stars">
-                <div class="star">⭐</div>
-                <div class="star">✨</div>
-                <div class="star">🌟</div>
-                <div class="star">💫</div>
-                <div class="star">⭐</div>
-                <div class="star">✨</div>
-            </div>
-            
-            <div class="opening-title">
-                <h1 class="grand-title">🎊 GRAND OPENING 🎊</h1>
-                <h2 class="grand-subtitle">Pudhalvans Website</h2>
-                <p class="grand-message">Opened by the Great Mom of Pudhalvans - "Maheswari Vedhachalam"</p>
-            </div>
-            
-            <div class="verification-box" id="verificationBox">
-                <h3>🔐 Verification Required</h3>
-                <p>Please enter the month of birth to proceed:</p>
-                <div class="month-input-container">
-                    <select id="monthInput" class="month-select">
-                        <option value="">Select Month</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                    <button onclick="verifyMonth()" class="verify-btn">Verify ✓</button>
-                </div>
-                <div id="verificationError" class="verification-error"></div>
-            </div>
-            
-            <div class="ribbon-container" id="ribbonContainer" style="display: none;">
-                <div class="ribbon-left" id="ribbonLeft"></div>
-                <div class="ribbon-right" id="ribbonRight"></div>
-                <div class="scissors" id="scissors">✂️</div>
-            </div>
-            
-            <div class="confetti-container" id="confettiContainer"></div>
-        </div>
-    </div>
-
     <!-- Mascot Character -->
     <div class="mascot-container"></div>
         <img src="mascot.png" alt="Pudhalvans Mascot" class="mascot-character active" id="mascot1">
@@ -753,14 +701,6 @@
                     <div class="float-item rainbow">🌈</div>
                 </div>
                 <h2>Contact Us 📧</h2>
-                
-                <!-- Hidden Reset Button - Click "Contact Us" title 5 times to reveal -->
-                <div id="resetButtonContainer" class="reset-button-container" style="display: none;">
-                    <button type="button" class="reset-opening-btn" onclick="resetGrandOpening()">
-                        🔄 Reset Grand Opening
-                    </button>
-                    <p class="reset-info">Click to see the grand opening again on next page load</p>
-                </div>
                 
                 <form id="contactForm" onsubmit="handleSubmit(event)"></form>
                     <div class="form-row">
